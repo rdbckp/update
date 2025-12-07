@@ -16,13 +16,13 @@ targets += $(devicetable-offsets-file) devicetable-offsets.c
 
 # dependencies on generated files need to be listed explicitly
 
-$(obj)/modpost.o $(obj)/file2alias.o $(obj)/sumversion.o: $(obj)/elfconfig.h
+$(obj)/modpost.o $(obj)/file2alias.o $(obj)/sumversion.o: $(obj)/elfconfig.c
 $(obj)/file2alias.o: $(obj)/$(devicetable-offsets-file)
 
 quiet_cmd_elfconfig = MKELF   $@
       cmd_elfconfig = $(obj)/elfconfig < $< > $@
 
-$(obj)/elfconfig.h: $(obj)/empty.c $(obj)/elfconfig FORCE
+$(obj)/elfconfig.c: $(obj)/empty.c $(obj)/elfconfig FORCE
 	$(call if_changed,elfconfig)
 
-targets += elfconfig.h
+targets += elfconfig.c
